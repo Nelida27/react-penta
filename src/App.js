@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
     <Routes>
         <Route index element={<Ana00 />} />
-        <Route path="blogs" element={<Ana01 />} />
+        <Route path="details/:id" element={<Ana01 />} />
     </Routes>
   </BrowserRouter>
     
