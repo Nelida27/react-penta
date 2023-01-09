@@ -46,6 +46,13 @@ const Addform = () =>{
                     required
                 />
             </Form.Group>
+            <Button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </Button>
             <Button variant="success" type="submit">
                 Add New Employee
             </Button>

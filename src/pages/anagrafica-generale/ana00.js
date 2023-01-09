@@ -1,5 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Alert} from 'react-bootstrap';
+import DeleteConfirmation from "../../components/shared/delete-confirmation";
 
 import AddForm from '../../components/ana00/create-ana00.js';
 import { Link } from "react-router-dom";
@@ -15,6 +16,9 @@ const Ana00 = () => {
   const handleClose = () => setShow(false);
   const [anaGenerale, setAnaGenerale] = useState([]);
 
+  const [showModal, setShowModal] = useState(false);
+  const [itemToDeleteId, setItemToDeleteId] = useState(0);
+
   const setAnaGeneraleData = () => {
     axios.get(baseURL + "/anagrafiche/listaana00.php").then((response) => {
         setAnaGenerale(response.data.ResGenerale);
@@ -22,12 +26,25 @@ const Ana00 = () => {
       alert("Error Ocurred while loading data:" + error);
     });
   }
-  const onDelete = (id) => {
+  const openConfirmDeleteModalHandler = (id) => {
+    setShowModal(true);
+    setItemToDeleteId(id);
+  };
+  
+  const hideDeleteModalHandler = () => {
+    setShowModal(false);
+    setItemToDeleteId(0);
+  };
+  const onDelete = () => {
+    console.log(itemToDeleteId);
     const data = new FormData()
-    data.append('ANA00Codice', id)
+    data.append('ANA00Codice', itemToDeleteId)
     axios.post(baseURL +'/anagrafiche/deleteana00.php',data)
      .then(() => {
+      setItemToDeleteId(0);
+      setShowModal(false);
       setAnaGeneraleData();
+
     })
   }
 
@@ -69,28 +86,20 @@ const Ana00 = () => {
                             <td>
                             <Link to={`/details/${row.ANA00Codice}`}>Details</Link>
                                 <a href="#" className="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }}>Edit<i className="material-icons">&#xE417;</i></a>
-                                <a href="#" className="edit" title="Edit" data-toggle="tooltip" onClick={() => onDelete(row.ANA00Codice)}>Delete<i className="material-icons">&#xE254;</i></a>
+                                <a href="#" className="edit" title="Edit" data-toggle="tooltip" onClick={() =>{openConfirmDeleteModalHandler(row.ANA00Codice)}}>Delete<i className="material-icons">&#xE254;</i></a>
                             </td>
                         </tr>
                            ))
                         }
                     </tbody>
                 </table>
-                <Modal show={show} onHide={handleClose}>
-                    <Modal.Header>
-                        <Modal.Title>
-                            Add Employee
-                        </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <AddForm />
-                    </Modal.Body>
-                    <Modal.Footer>
-                            <Button onClick={handleClose}>
-                                Close Button
-                            </Button>
-                    </Modal.Footer>
-                  </Modal>
+                <DeleteConfirmation
+                  showModal={showModal}
+                  hideDeleteModalHandler={hideDeleteModalHandler}
+                  title="Delete Confirmation"
+                  body="Are you want delete this itme?"
+                  confirmDeleteHandler={onDelete}
+                ></DeleteConfirmation>
             </div>   
         </div>  
        </div>  
