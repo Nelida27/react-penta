@@ -2,7 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Alert} from 'react-bootstrap';
 import DeleteConfirmation from "../../components/shared/delete-confirmation";
 
-import AddForm from '../../components/ana00/create-ana00.js';
+import AddEmployee from '../../components/ana00/create-ana00.js';
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
@@ -47,7 +47,23 @@ const Ana00 = () => {
 
     })
   }
-
+  const newAna00 = ( ANA00Ragionesociale, ANA00Ragionesociale2)=> {
+     
+      const newAna00 = new FormData()
+      newAna00.append('stute', 1)
+      newAna00.append('stope', 1)
+      newAna00.append('stazie', 1)
+      newAna00.append('ANA00CodiceANA01', 1)
+      newAna00.append('ANA00TipopersonaTAB04', 1)
+      newAna00.append('ANA00Ragionesociale', ANA00Ragionesociale)
+      newAna00.append('ANA00Ragionesociale2', ANA00Ragionesociale2)
+      axios.post(baseURL +'/anagrafiche/createana00.php',newAna00)
+      .then(() => {
+       setAnaGeneraleData();
+ 
+     })
+    
+}
   useEffect(() => {
     setAnaGeneraleData();
   }, []);
@@ -63,7 +79,7 @@ const Ana00 = () => {
               </div>  
               <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"green"}}><h2><b>Ana 00</b></h2></div>
               <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-              <a href="#" className="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }} onClick={handleShow} >Create</a>
+              <AddEmployee  newAna00={newAna00}/>
              </div>
            </div>  
             <div className="row">
