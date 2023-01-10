@@ -2,7 +2,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Alert} from 'react-bootstrap';
 import DeleteConfirmation from "../../components/shared/delete-confirmation";
 
-import AddEmployee from '../../components/ana00/create-ana00.js';
+import AddAna00 from '../../components/ana00/create-ana00.js';
+import EditAna00 from '../../components/ana00/edit-ana00.js';
 import { Link } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
@@ -64,6 +65,9 @@ const Ana00 = () => {
      })
     
 }
+const updateAna00 = (ANA00Codice, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
+  console.log('test');
+}
   useEffect(() => {
     setAnaGeneraleData();
   }, []);
@@ -79,7 +83,7 @@ const Ana00 = () => {
               </div>  
               <div className="col-sm-3 offset-sm-2 mt-5 mb-4 text-gred" style={{color:"green"}}><h2><b>Ana 00</b></h2></div>
               <div className="col-sm-3 offset-sm-1  mt-5 mb-4 text-gred">
-              <AddEmployee  newAna00={newAna00}/>
+              <AddAna00 newAna00={newAna00}/>
              </div>
            </div>  
             <div className="row">
@@ -101,7 +105,13 @@ const Ana00 = () => {
                             <td>{row.ANA00Ragionesociale2}</td>
                             <td>
                             <Link to={`/details/${row.ANA00Codice}`}>Details</Link>
-                                <a href="#" className="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }}>Edit<i className="material-icons">&#xE417;</i></a>
+                              
+                                <EditAna00
+                                    id={row.ANA00Codice}
+                                    name={row.ANA00Ragionesociale}
+                                    role={row.ANA00Ragionesociale2}
+                                    updateAna00={updateAna00}
+                                />
                                 <a href="#" className="edit" title="Edit" data-toggle="tooltip" onClick={() =>{openConfirmDeleteModalHandler(row.ANA00Codice)}}>Delete<i className="material-icons">&#xE254;</i></a>
                             </td>
                         </tr>
