@@ -65,8 +65,22 @@ const Ana00 = () => {
      })
     
 }
-const updateAna00 = (ANA00Codice, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
-  console.log('test');
+const updateAna00 = (id, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
+ console.log(ANA00Ragionesociale,'again');
+  const newAna00 = new FormData()
+  newAna00.append('stute', 1)
+  newAna00.append('stope', 1)
+  newAna00.append('stazie', 1)
+  newAna00.append('ANA00CodiceANA01', 1)
+  newAna00.append('ANA00Codice', id)
+  newAna00.append('ANA00TipopersonaTAB04', 1)
+  newAna00.append('ANA00Ragionesociale', ANA00Ragionesociale)
+  newAna00.append('ANA00Ragionesociale2', ANA00Ragionesociale2)
+  axios.post(baseURL +'/anagrafiche/updateana00.php',newAna00)
+  .then(() => {
+   setAnaGeneraleData();
+
+ })
 }
   useEffect(() => {
     setAnaGeneraleData();
@@ -108,8 +122,8 @@ const updateAna00 = (ANA00Codice, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
                               
                                 <EditAna00
                                     id={row.ANA00Codice}
-                                    name={row.ANA00Ragionesociale}
-                                    role={row.ANA00Ragionesociale2}
+                                    ANA00Ragionesociale={row.ANA00Ragionesociale}
+                                    ANA00Ragionesociale2={row.ANA00Ragionesociale2}
                                     updateAna00={updateAna00}
                                 />
                                 <a href="#" className="edit" title="Edit" data-toggle="tooltip" onClick={() =>{openConfirmDeleteModalHandler(row.ANA00Codice)}}>Delete<i className="material-icons">&#xE254;</i></a>
