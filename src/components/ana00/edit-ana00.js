@@ -12,7 +12,7 @@ function EditAna00(props) {
 
     return (
         <>
-            <a href="#" className="view" title="View" data-toggle="tooltip" style={{ color: "#10ab80" }}  onClick={handleShow}>Edit<i className="material-icons">&#xE417;</i></a>
+            <a href="#" className="view" title="View" data-toggle="tooltip" style={{ paddingLeft: "10px",paddingRight:"10px" }}  onClick={handleShow}><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
 
             <Modal
                 show={show}
@@ -81,13 +81,13 @@ function EditAna00(props) {
                 </Modal.Body>
                 <Modal.Footer>
                     <button
-                        className=" hover:bg-slate-500 text-white font-bold py-2 px-4 rounded"
+                        className=" hover:bg-slate-500 font-bold py-2 px-4 rounded"
                         onClick={handleClose}
                     >
                         Close
                     </button>
                     <button
-                        className="hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
+                        className="hover:bg-purple-700 font-bold py-2 px-4 rounded"
                         form="editmodal"
                     >
                         Update

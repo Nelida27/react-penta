@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Modal, Button, Alert} from 'react-bootstrap';
 import DeleteConfirmation from "../../components/shared/delete-confirmation";
 
+
 import AddAna00 from '../../components/ana00/create-ana00.js';
 import EditAna00 from '../../components/ana00/edit-ana00.js';
 import { Link } from "react-router-dom";
@@ -118,7 +119,7 @@ const updateAna00 = (id, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
                             <td>{row.ANA00Ragionesociale}</td>
                             <td>{row.ANA00Ragionesociale2}</td>
                             <td>
-                            <Link to={`/details/${row.ANA00Codice}`}>Details</Link>
+                            <Link to={`/details/${row.ANA00Codice}`}><i class="fa fa-eye" aria-hidden="true"></i></Link>
                               
                                 <EditAna00
                                     id={row.ANA00Codice}
@@ -126,7 +127,8 @@ const updateAna00 = (id, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
                                     ANA00Ragionesociale2={row.ANA00Ragionesociale2}
                                     updateAna00={updateAna00}
                                 />
-                                <a href="#" className="edit" title="Edit" data-toggle="tooltip" onClick={() =>{openConfirmDeleteModalHandler(row.ANA00Codice)}}>Delete<i className="material-icons">&#xE254;</i></a>
+                                
+                                <a href="#" className="edit" style={{ color: "red" }} title="Edit" data-toggle="tooltip" onClick={() =>{openConfirmDeleteModalHandler(row.ANA00Codice)}}><i className="fa fa-trash" aria-hidden="true"></i></a>
                             </td>
                         </tr>
                            ))
