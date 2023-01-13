@@ -27,6 +27,7 @@ const Ana00 = () => {
       alert("Error Ocurred while loading data:" + error);
     });
   }
+
   const openConfirmDeleteModalHandler = (id) => {
     setShowModal(true);
     setItemToDeleteId(id);
@@ -48,16 +49,27 @@ const Ana00 = () => {
 
     })
   }
-  const newAna00 = ( ANA00Ragionesociale, ANA00Ragionesociale2)=> {
+  const newAna00 = (ANA00TipoPersonaTAB04,ANA00Ragionesociale,ANA00Ragionesociale2,ANA00Indirizzo,ANA00Cap,ANA00Comune,ANA00Provincia,ANA00Partitaiva,ANA00Codicefiscale,ANA00Telefono,ANA00Email,ANA00Sesso)=> {
      
       const newAna00 = new FormData()
       newAna00.append('stute', 1)
       newAna00.append('stope', 1)
       newAna00.append('stazie', 1)
       newAna00.append('ANA00CodiceANA01', 1)
-      newAna00.append('ANA00TipopersonaTAB04', 1)
+      newAna00.append('ANA00TipopersonaTAB04', ANA00TipoPersonaTAB04)
       newAna00.append('ANA00Ragionesociale', ANA00Ragionesociale)
       newAna00.append('ANA00Ragionesociale2', ANA00Ragionesociale2)
+      newAna00.append('ANA00Indirizzo', ANA00Indirizzo)
+      newAna00.append('ANA00Cap', ANA00Cap)
+      newAna00.append('ANA00Comune', ANA00Comune)
+      newAna00.append('ANA00Provincia', ANA00Provincia)
+      newAna00.append('ANA00NazioneTAB33', "Albania") /* ANA00Nazione */
+      newAna00.append('ANA00Partitaiva', ANA00Partitaiva)
+      newAna00.append('ANA00Codicefiscale', ANA00Codicefiscale)
+      newAna00.append('ANA00Telefono', ANA00Telefono)
+      newAna00.append('ANA00Email', ANA00Email)
+      newAna00.append('ANA00Sesso', ANA00Sesso)
+      console.log(newAna00);
       axios.post(baseURL +'/anagrafiche/createana00.php',newAna00)
       .then(() => {
        setAnaGeneraleData();
@@ -68,9 +80,10 @@ const Ana00 = () => {
 const updateAna00 = (ANA00Codice, ANA00Ragionesociale, ANA00Ragionesociale2) =>{
   console.log('test');
 }
-  useEffect(() => {
-    setAnaGeneraleData();
-  }, []);
+
+useEffect(() => {
+  setAnaGeneraleData();
+}, []);
  
   return (
  
