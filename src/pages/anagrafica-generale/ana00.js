@@ -50,7 +50,7 @@ const Ana00 = () => {
 
     })
   }
-  const newAna00 = (ANA00TipoPersonaTAB04,ANA00Ragionesociale,ANA00Ragionesociale2,ANA00Indirizzo,ANA00Cap,ANA00Comune,ANA00Provincia,ANA00Partitaiva,ANA00Codicefiscale,ANA00Telefono,ANA00Email,ANA00Sesso)=> {
+  const newAna00 = (ANA00TipoPersonaTAB04,ANA00Ragionesociale,ANA00Ragionesociale2,ANA00Indirizzo,ANA00Cap,ANA00Comune,ANA00Provincia,ANA00Nazione,ANA00Partitaiva,ANA00Codicefiscale,ANA00Telefono,ANA00Email,ANA00Sesso)=> {
      
       const newAna00 = new FormData()
       newAna00.append('stute', 1)
@@ -64,7 +64,7 @@ const Ana00 = () => {
       newAna00.append('ANA00Cap', ANA00Cap)
       newAna00.append('ANA00Comune', ANA00Comune)
       newAna00.append('ANA00Provincia', ANA00Provincia)
-      newAna00.append('ANA00NazioneTAB33', "Albania") /* ANA00Nazione */
+      newAna00.append('ANA00NazioneTAB33', ANA00Nazione) /* ANA00Nazione */
       newAna00.append('ANA00Partitaiva', ANA00Partitaiva)
       newAna00.append('ANA00Codicefiscale', ANA00Codicefiscale)
       newAna00.append('ANA00Telefono', ANA00Telefono)

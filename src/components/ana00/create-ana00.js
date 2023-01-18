@@ -19,19 +19,27 @@ function AddAna00(props) {
     const [ANA00Email, setANA00Email] = useState('');
     const [ANA00Sesso, setANA00Sesso] = useState('');
 
-    const baseURL = "https://marketechpro.com/phpgest";
+    const baseURL = "https://pixora-pentapoc-dev.odoo.com/pentapoc/";
     const [comuni, setComuni] = useState([]);
     const elencoComuni = () => {
-      axios.get(baseURL + "/tabelle/listatab32.php").then((response) => {
-          setComuni(response.data.ResComuni);
+      axios.get(baseURL + "comuni").then((response) => {
+          setComuni(response.data);
       }).catch(error => {
         alert("Error Ocurred while loading data:" + error);
       });
     }
     const [tipiPersona, setTipiPersona] = useState([]);
     const elencoTipiPersona = () => {
-      axios.get(baseURL + "/tabelle/listatab04.php").then((response) => {
-        setTipiPersona(response.data.ResTipipersona);
+      axios.get(baseURL + "tipipersona").then((response) => {
+        setTipiPersona(response.data);
+      }).catch(error => {
+        alert("Error Ocurred while loading data:" + error);
+      });
+    }
+    const [nazioni, setNazioni] = useState([]);
+    const elencoNazioni = () => {
+      axios.get(baseURL + "nazioni").then((response) => {
+        setNazioni(response.data);
       }).catch(error => {
         alert("Error Ocurred while loading data:" + error);
       });
@@ -46,6 +54,7 @@ function AddAna00(props) {
     useEffect(() => {
         elencoComuni();
         elencoTipiPersona();
+        elencoNazioni();
       }, []);    
 
     return (
@@ -83,7 +92,7 @@ function AddAna00(props) {
                             setANA00Codicefiscale('');
                             setANA00Email('');
                             setANA00Sesso('');
-                            props.newAna00(ANA00TipoPersonaTAB04,ANA00Ragionesociale,ANA00Ragionesociale2,ANA00Indirizzo,ANA00Cap,ANA00Comune,ANA00Provincia,ANA00Partitaiva,ANA00Codicefiscale,ANA00Telefono,ANA00Email,ANA00Sesso);
+                            props.newAna00(ANA00TipoPersonaTAB04,ANA00Ragionesociale,ANA00Ragionesociale2,ANA00Indirizzo,ANA00Cap,ANA00Comune,ANA00Provincia,ANA00Nazione,ANA00Partitaiva,ANA00Codicefiscale,ANA00Telefono,ANA00Email,ANA00Sesso);
                         }}
                         id="editmodal"
                         className="w-full max-w-sm"
@@ -93,7 +102,7 @@ function AddAna00(props) {
                             <select name="persona" id="persona-select" onChange={(e) => setANA00TipoPersonaTAB04(e.target.value)}>
                                 <option value="">Scegli un opzione</option>
                                 {tipiPersona && tipiPersona.map((row, index) => (
-                                        <option key={index} value={row.TAB04Codice}>{row.TAB04Descrizione}</option>
+                                        <option key={index} value={row.codice}>{row.descrizione}</option>
                                     ))
                                 }
                             </select>
@@ -172,16 +181,16 @@ function AddAna00(props) {
                                     setANA00Comune(e.target.value);
                                     comuni.forEach((comune) => {
                                         //console.log(comune);
-                                        if(e.target.value === comune.TAB32Comune) {
-                                            setANA00Cap(comune.TAB32Cap);
-                                            setANA00Provincia(comune.TAB32Provincia);
+                                        if(e.target.value === comune.comune) {
+                                            setANA00Cap(comune.cap);
+                                            setANA00Provincia(comune.provincia);
                                         }
                                     })
                                     }
                                 }/>
                             <datalist id="datalistOptions">
                                 {comuni && comuni.map((row, index) => (
-                                    <option key={index} value={row.TAB32Comune}/>
+                                    <option key={index} value={row.comune}/>
                                 ))
                             }
                             </datalist>
@@ -228,27 +237,24 @@ function AddAna00(props) {
                                 />
                             </div>
                         </div>
-                        {/* <div className="md:flex md:items-center mb-6">
-                            <div className="md:w-1/3">
-                                <label
-                                    className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                                   
-                                >
-                                    Nazione
-                                </label>
-                            </div>
-                            <div className="md:w-2/3">
-                                <input
-                                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                                    id="name"
-                                    type="text"
-                                    value={ANA00Nazione}
-                                    onChange={(e) => {
-                                        setANA00Nazione(e.target.value);
-                                    }}
-                                />
-                            </div>
-                        </div> */}
+                        <div>
+                            <label className="form-label">Nazione</label>
+                            <input className="form-control" 
+                                list="datalistOptions2" 
+                                id="exampleDataList2" 
+                                placeholder="Type to search..." 
+                                value={ANA00Nazione}
+                                onChange={(e) => {
+                                    setANA00Nazione(e.target.value);
+                                    }
+                                }/>
+                            <datalist id="datalistOptions2">
+                                {nazioni && nazioni.map((row, index) => (
+                                    <option key={index} value={row.codice}>{row.nazione}</option>
+                                ))
+                            }
+                            </datalist>
+                        </div>
                         <div className="md:flex md:items-center mb-6">
                             <div className="md:w-1/3">
                                 <label
